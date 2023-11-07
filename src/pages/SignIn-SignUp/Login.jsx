@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
+import axios from "axios";
 
 
 const Login = () => {
@@ -23,10 +24,16 @@ const Login = () => {
 
         signInUser(email, password)
         .then(result => {
-            console.log(result.user)
-            setSuccess('Logged In Successfully')
+           const loggedInUser = result.user;
+           console.log(loggedInUser);
+           const user ={email};
             e.target.reset();
-            navigate(location?.state ? location?.state : '/')
+          //  navigate(location?.state ? location?.state : '/')
+            //get access token
+            axios.post('http://localhost:5000/jwt',user)
+            .then(res =>{
+                console.log(res.data);
+            })
         })
         .catch(error => {
             console.error(error);
