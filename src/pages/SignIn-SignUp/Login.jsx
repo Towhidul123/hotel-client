@@ -1,16 +1,18 @@
 import { useContext, useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 
 const Login = () => {
 
     const {signInUser, signInWithGoogle} = useContext(AuthContext);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const [loginError, setLoginError] = useState('');
     const [success, setSuccess] = useState('');
 
-   const navigate = useNavigate();
+
 
 
     const handleLogin = e =>{
@@ -24,7 +26,7 @@ const Login = () => {
             console.log(result.user)
             setSuccess('Logged In Successfully')
             e.target.reset();
-            navigate('/')
+            navigate(location?.state ? location?.state : '/')
         })
         .catch(error => {
             console.error(error);

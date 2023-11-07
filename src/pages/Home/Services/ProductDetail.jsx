@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useParams } from 'react-router-dom';
 
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { AuthContext } from '../../../providers/AuthProvider';
 
 const ProductDetail = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
 
     const [startDate, setStartDate] = useState(null);
+
+    const { user} = useContext(AuthContext)
+
+    const email = user.email;
+
 
     useEffect(() => {
         console.log('Fetching data for productId:', productId);
@@ -24,14 +30,25 @@ const ProductDetail = () => {
         return <div>Loading...</div>;
     }
 
-    const { special_offers, availability, room_size, price_per_night, room_images, description } = product;
-    const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, startDate }
+    const {_id, special_offers, availability, room_size, price_per_night, room_images, description } = product;
+   
+  //  console.log(product);
+ //   console.log(productCart);
 
-    console.log(product);
-    console.log(productCart);
 
+ const handleAddToCart = () => {
+    if (startDate) {
+        // Convert startDate to ISO string and extract year, month, and date
+        const isoDate = startDate.toISOString();
+        const year = isoDate.substring(0, 4);
+        const month = isoDate.substring(5, 7);
+        const day = isoDate.substring(8, 10);
 
-    const handleAddToCart = () => {
+        const formattedDate = `${year}-${month}-${day}`;
+
+        // Use formattedDate in your request
+        const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email};
+
         fetch("http://localhost:5000/addToCart", {
             method: "POST",
             headers: {
@@ -39,14 +56,17 @@ const ProductDetail = () => {
             },
             body: JSON.stringify(productCart),
         })
-            .then((res) => res.json())
-            .then((data) => {
-                if (data.insertedId) {
-                    toast.success('Successfully Added!');
-                }
-            });
-    };
-
+        .then((res) => res.json())
+        .then((data) => {
+            if (data.insertedId) {
+                toast.success('Successfully Added!');
+            }
+        });
+    } else {
+        // Handle case where startDate is null (not selected)
+        console.error('startDate is null. Please select a date.');
+    }
+};
     const handleBookNow = () => {
         Swal.fire({
             title: "Are you sure?",

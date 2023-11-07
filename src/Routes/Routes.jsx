@@ -5,11 +5,14 @@ import Login from "../pages/SignIn-SignUp/Login";
 import Register from "../pages/SignIn-SignUp/Register";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ProductDetail from "../pages/Home/Services/ProductDetail";
+import Cart from "../pages/Cart/Cart";
+import Error from "../pages/Error/Error";
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <Main></Main>,
+      errorElement: <Error></Error>,
       children:[
         {
             path:'/',
@@ -32,6 +35,10 @@ const router = createBrowserRouter([
           loader: ({ params }) => fetch(`http://localhost:5000/${params.productId}`)
         },
 
+        {
+          path:'/cart',
+          element: <PrivateRoute><Cart></Cart></PrivateRoute>
+        }
 
       ]
     },
