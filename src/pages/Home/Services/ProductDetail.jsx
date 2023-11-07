@@ -12,6 +12,7 @@ import ReviewComponent from '../../Review/ReviewComponent';
 const ProductDetail = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
+    
 
     const [startDate, setStartDate] = useState(null);
 
@@ -66,7 +67,7 @@ const ProductDetail = () => {
     if (!product) {
         return <div>Loading...</div>;
     }
-    const { _id, special_offers, availability, room_size, price_per_night, room_images, description } = product;
+    const { _id, special_offers, availability, room_size, price_per_night, room_images, description, room_count } = product;
 
     //  console.log(product);
     //   console.log(productCart);
@@ -83,7 +84,7 @@ const ProductDetail = () => {
             const formattedDate = `${year}-${month}-${day}`;
 
             // Use formattedDate in your request
-            const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email };
+            const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email, room_count };
 
             fetch("http://localhost:5000/addToCart", {
                 method: "POST",
@@ -119,7 +120,27 @@ const ProductDetail = () => {
             confirmButtonText: "Book Now"
         }).then((result) => {
             if (result.isConfirmed) {
-                handleAddToCart();
+                fetch(`http://localhost:5000/updateRoomAvailability/${_id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        roomCount: room_count - 1,
+                        availability: room_count > 1 ? 'available' : 'unavailable',
+                    }),
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.ok) {
+                        handleAddToCart();
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "No Room Available!",
+                            });    }
+                });
             }
         });
     };
@@ -132,7 +153,9 @@ const ProductDetail = () => {
             <div className='flex justify-center items-center'>
 
                 <DatePicker selected={startDate} placeholderText="Pick a date" onChange={(date) => setStartDate(date)} />
-
+                <div>
+                    No.of rooms left:{room_count}
+                </div>
             </div>
             <div className='flex justify-center items-center p-10'>
                 {/* <h1>{product.name}</h1> */}
