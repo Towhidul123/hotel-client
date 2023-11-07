@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { AuthContext } from '../../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import ReviewComponent from '../../Review/ReviewComponent';
 
 const ProductDetail = () => {
     const { productId } = useParams();
@@ -14,60 +15,94 @@ const ProductDetail = () => {
 
     const [startDate, setStartDate] = useState(null);
 
-    const { user} = useContext(AuthContext)
+    const { user } = useContext(AuthContext)
 
     const email = user.email;
+    const [reviews, setReviews] = useState([]);
+
+    const [reviewData, setReviewData] = useState({ username: '', rating: '', comment: '' });
+
+    const handleReviewSubmit = (e) => {
+        e.preventDefault();
+
+        fetch('http://localhost:5000/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                roomId: _id,
+                username: reviewData.username,
+                rating: reviewData.rating,
+                comment: reviewData.comment,
+                timestamp: new Date().toISOString(),
+            }),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    // Review added successfully, update the state or show a success message
+                    setReviewData({ username: '', rating: '', comment: '' });
+                    // Optionally, fetch and update the list of reviews for this room
+                }
+            });
+    };
+
 
 
     useEffect(() => {
         console.log('Fetching data for productId:', productId);
         fetch(`http://localhost:5000/products/${productId}`)
             .then(res => res.json())
-            .then(data => setProduct(data))
+            .then(data => {
+                setProduct(data);
+                fetch(`http://localhost:5000/reviews?roomId=${data._id}`)
+                    .then(res => res.json())
+                    .then(reviewsData => setReviews(reviewsData));
+            })
             .catch(error => console.error('Error fetching data:', error));
     }, [productId]);
 
     if (!product) {
         return <div>Loading...</div>;
     }
+    const { _id, special_offers, availability, room_size, price_per_night, room_images, description } = product;
 
-    const {_id, special_offers, availability, room_size, price_per_night, room_images, description } = product;
-   
-  //  console.log(product);
- //   console.log(productCart);
+    //  console.log(product);
+    //   console.log(productCart);
 
 
- const handleAddToCart = () => {
-    if (startDate) {
-        // Convert startDate to ISO string and extract year, month, and date
-        const isoDate = startDate.toISOString();
-        const year = isoDate.substring(0, 4);
-        const month = isoDate.substring(5, 7);
-        const day = isoDate.substring(8, 10);
+    const handleAddToCart = () => {
+        if (startDate) {
+            // Convert startDate to ISO string and extract year, month, and date
+            const isoDate = startDate.toISOString();
+            const year = isoDate.substring(0, 4);
+            const month = isoDate.substring(5, 7);
+            const day = isoDate.substring(8, 10);
 
-        const formattedDate = `${year}-${month}-${day}`;
+            const formattedDate = `${year}-${month}-${day}`;
 
-        // Use formattedDate in your request
-        const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email};
+            // Use formattedDate in your request
+            const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email };
 
-        fetch("http://localhost:5000/addToCart", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json",
-            },
-            body: JSON.stringify(productCart),
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            if (data.insertedId) {
-                toast.success('Successfully Added!');
-            }
-        });
-    } else {
-        // Handle case where startDate is null (not selected)
-        console.error('startDate is null. Please select a date.');
-    }
-};
+            fetch("http://localhost:5000/addToCart", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(productCart),
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    if (data.insertedId) {
+                        toast.success('Successfully Added!');
+                    }
+                });
+        } else {
+            // Handle case where startDate is null (not selected)
+            console.error('startDate is null. Please select a date.');
+        }
+    };
     const handleBookNow = () => {
         Swal.fire({
             title: "Are you sure?",
@@ -147,7 +182,7 @@ const ProductDetail = () => {
 
 
                     >
-                        Add to Cart
+                        Book Now
                     </button>
 
                 </div>
@@ -155,6 +190,49 @@ const ProductDetail = () => {
 
             </div>
 
+            <div className='p-10'>
+            <h3 className='text-center text-3xl'>Reviews</h3>
+            <div className=' flex justify-center items-center'>
+                
+                {reviews.map(review => (
+                    <ReviewComponent
+                        key={review._id}
+                        username={review.username}
+                        rating={review.rating}
+                        comment={review.comment}
+                        timestamp={review.timestamp}
+                    />
+                ))}
+            </div>
+            </div>        
+            <div className='p-10 flex justify-center items-center flex-col'>
+   
+    <h3 className='text-3xl'>Submit a Review</h3>
+    
+    <form  onSubmit={handleReviewSubmit} className=" flex flex-col items-center ">
+        <input
+            type="text"
+            placeholder="Username"
+            value={reviewData.username}
+            onChange={(e) => setReviewData({ ...reviewData, username: e.target.value })}
+            required
+        />
+        <input
+            type="number"
+            placeholder="Rating"
+            value={reviewData.rating}
+            onChange={(e) => setReviewData({ ...reviewData, rating: e.target.value })}
+            required
+        />
+        <textarea
+            placeholder="Comment"
+            value={reviewData.comment}
+            onChange={(e) => setReviewData({ ...reviewData, comment: e.target.value })}
+            required
+        />
+        <button type="submit">Submit Review</button>
+    </form>
+</div>
 
 
 

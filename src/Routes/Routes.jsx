@@ -7,6 +7,7 @@ import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import ProductDetail from "../pages/Home/Services/ProductDetail";
 import Cart from "../pages/Cart/Cart";
 import Error from "../pages/Error/Error";
+import Services from "../pages/Home/Services/Services";
 
 const router = createBrowserRouter([
     {
@@ -24,6 +25,11 @@ const router = createBrowserRouter([
           element:<Login></Login>
         },
         
+        {
+          path:'/room',
+          element: <Services></Services>
+
+        },
         {
           path:'/register',
           element:<Register></Register>

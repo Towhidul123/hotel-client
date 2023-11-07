@@ -21,7 +21,7 @@ const NavBar = ({ toggleTheme }) => {
 
     <li className="px-2"><NavLink className={({ isActive, isPending }) =>
       isPending ? "pending" : isActive ? "text-red-600 underline" : ""
-    } to='/'>Room</NavLink></li>
+    } to='/room'>Room</NavLink></li>
 
 
 

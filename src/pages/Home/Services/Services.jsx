@@ -4,6 +4,9 @@ import ServiceCard from './ServiceCard';
 
 const Services = () => {
 
+    const [reviewCounts, setReviewCounts] = useState({});
+
+
     const [services, setServices] = useState([]);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
@@ -13,6 +16,22 @@ const Services = () => {
             .then(response => response.json())
             .then(data => setServices(data));
     }, []);
+
+    useEffect(() => {
+        services.forEach(service => {
+          fetch(`http://localhost:5000/reviewCount/${service._id}`)
+            .then(response => response.json())
+            .then(data => {
+              setReviewCounts(prevCounts => ({
+                ...prevCounts,
+                [service._id]: data.count
+              }));
+            })
+            .catch(error => console.error('Error fetching review count:', error));
+        });
+      }, [services]);
+      
+
 
 
     const filterServices = () => {
@@ -58,7 +77,7 @@ const Services = () => {
 
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
                 {
-                    filterServices().map(service => <ServiceCard key={service._id} service={service}></ServiceCard>)
+                    filterServices().map(service => <ServiceCard key={service._id} service={service} reviewCount={reviewCounts[service._id]}></ServiceCard>)
                 }
             </div>
         </div>
