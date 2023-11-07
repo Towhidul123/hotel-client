@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 const ServiceCard = ({ service }) => {
 
-    const { _id, room_images } = service;
+    const { _id, room_images, price_per_night } = service;
+    
 
     return (
         <Link to={`/products/${_id}`}>
