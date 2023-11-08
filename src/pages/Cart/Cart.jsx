@@ -3,6 +3,7 @@ import { AuthContext } from "../../providers/AuthProvider";
 import CartCard from "./CartCard";
 import Swal from "sweetalert2";
 import moment from 'moment';
+import axios from "axios";
 
 const Cart = () => {
 
@@ -11,10 +12,14 @@ const Cart = () => {
 
     const url = `http://localhost:5000/addToCart?email=${user?.email}`;
     useEffect(() => {
-        fetch(url)
-            .then(res => res.json())
-            .then(data => setCard(data))
-            .catch(error => console.error('Error fetching data:', error));
+        axios.get(url, {withCredentials: true})
+        .then(res=>{
+            setCard(res.data);
+        })
+        // fetch(url)
+        //     .then(res => res.json())
+        //     .then(data => setCard(data))
+        //     .catch(error => console.error('Error fetching data:', error));
     }, [url])
 
 

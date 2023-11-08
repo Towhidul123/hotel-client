@@ -29,11 +29,11 @@ const Login = () => {
            const user ={email};
             e.target.reset();
             //get access token
-            axios.post('http://localhost:5000/jwt',user, {withCredentials: true})
+            axios.post('http://localhost:5000/jwt', user, {withCredentials: true})
             .then(res =>{
                 console.log(res.data);
                 if(res.data.success){
-                   navigate(location?.state ? location?.state : '/')
+                  navigate(location?.state ? location?.state : '/')
 
                 }
             })
