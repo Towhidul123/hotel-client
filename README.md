@@ -22,4 +22,4 @@
 - Security is a top priority in our hotel management system, and it is achieved through robust authentication mechanisms. By implementing JWT (JSON Web Tokens) for user authentication, your system ensures that user sessions are securely managed. This approach not only provides a reliable means of verifying user identities but also allows for efficient authorization of system functionalities. Additionally, the use of cookies enables persistent sessions, allowing users to seamlessly navigate the system while maintaining personalized settings and preferences.
 
 
-client-side live link-
+- client-side live link- https://ass-11-5faf8.web.app
