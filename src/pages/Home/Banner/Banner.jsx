@@ -1,37 +1,48 @@
-
+import AwesomeSlider from 'react-awesome-slider';
+import withAutoplay from 'react-awesome-slider/dist/autoplay';
+import 'react-awesome-slider/dist/styles.css';
+import { ParallaxBanner, useParallax } from 'react-scroll-parallax';
 
 const Banner = () => {
+    const AutoplaySlider = withAutoplay(AwesomeSlider);
+
     return (
-        <div className="carousel w-full">
-            <div id="slide1" className="carousel-item relative w-full">
-                <img src="/images/stock/photo-1625726411847-8cbb60cc71e6.jpg" className="w-full" />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide4" className="btn btn-circle">❮</a>
-                    <a href="#slide2" className="btn btn-circle">❯</a>
+
+        <div>
+ <div className="relative">
+            <ParallaxBanner
+                layers={[
+                    { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -20 },
+                    { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -10 },
+                ]}
+                className="w-full h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover"
+            >
+                <div className="absolute inset-0 flex  justify-center">
+                    <h1 className="flex justify-center items-center text-center text-5xl  font-thin  text-[white]">Spend Your Vacation with Us </h1>
                 </div>
-            </div>
-            <div id="slide2" className="carousel-item relative w-full">
-                <img src="/images/stock/photo-1609621838510-5ad474b7d25d.jpg" className="w-full" />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide1" className="btn btn-circle">❮</a>
-                    <a href="#slide3" className="btn btn-circle">❯</a>
-                </div>
-            </div>
-            <div id="slide3" className="carousel-item relative w-full">
-                <img src="/images/stock/photo-1414694762283-acccc27bca85.jpg" className="w-full" />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide2" className="btn btn-circle">❮</a>
-                    <a href="#slide4" className="btn btn-circle">❯</a>
-                </div>
-            </div>
-            <div id="slide4" className="carousel-item relative w-full">
-                <img src="/images/stock/photo-1665553365602-b2fb8e5d1707.jpg" className="w-full" />
-                <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
-                    <a href="#slide3" className="btn btn-circle">❮</a>
-                    <a href="#slide1" className="btn btn-circle">❯</a>
-                </div>
-            </div>
+            </ParallaxBanner>
         </div>
+
+
+            <div>
+                <h2 className='text-center font-bold text-3xl mt-5'>Special Discount <br />50% OFF</h2>
+                <div className='flex justify-center w-full aspect-video max-h-[600px] py-5'>
+
+                    <AutoplaySlider
+                        play={true}
+                        cancelOnInteraction={false} // should stop playing on user interaction
+                        interval={6000}
+                    >
+                        <div data-src="https://i.ibb.co/dpXZ6Yn/albert-vincent-wu-fupf3-x-AUqw-unsplash-min.jpg" />
+                        <div data-src="https://i.ibb.co/Qb1nn9k/dad-hotel-P6-B7y6-Gnyzw-unsplash-min.jpg" />
+                        <div data-src="https://i.ibb.co/n73rZqr/febrian-zakaria-sjv-U0-THcc-QA-unsplash-min.jpg" />
+                    </AutoplaySlider>
+                </div>
+            </div>
+
+        </div>
+
+
     );
 };
 
