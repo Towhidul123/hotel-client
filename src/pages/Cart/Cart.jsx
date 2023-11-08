@@ -10,7 +10,7 @@ const Cart = () => {
     const { user } = useContext(AuthContext);
     const [card, setCard] = useState([]);
 
-    const url = `http://localhost:5000/addToCart?email=${user?.email}`;
+    const url = `https://y-eight-pi-68.vercel.app/addToCart?email=${user?.email}`;
     useEffect(() => {
         axios.get(url, {withCredentials: true})
         .then(res=>{
@@ -41,7 +41,7 @@ const Cart = () => {
             }).then((result) => {
                 if (result.isConfirmed) {
                  
-                fetch(`http://localhost:5000/addToCart/${_id}`, {
+                fetch(`https://y-eight-pi-68.vercel.app/addToCart/${_id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -70,7 +70,7 @@ const Cart = () => {
 
 
     const handleUpdateDate = (_id, newDate) => {
-        fetch(`http://localhost:5000/updateBookingDate/${_id}`, {
+        fetch(`https://y-eight-pi-68.vercel.app/updateBookingDate/${_id}`, {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json'

@@ -26,7 +26,7 @@ const ProductDetail = () => {
     const handleReviewSubmit = (e) => {
         e.preventDefault();
 
-        fetch('http://localhost:5000/reviews', {
+        fetch('https://y-eight-pi-68.vercel.app/reviews', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,11 +53,11 @@ const ProductDetail = () => {
 
     useEffect(() => {
         console.log('Fetching data for productId:', productId);
-        fetch(`http://localhost:5000/products/${productId}`)
+        fetch(`https://y-eight-pi-68.vercel.app/products/${productId}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data);
-                fetch(`http://localhost:5000/reviews?roomId=${data._id}`)
+                fetch(`https://y-eight-pi-68.vercel.app/reviews?roomId=${data._id}`)
                     .then(res => res.json())
                     .then(reviewsData => setReviews(reviewsData));
             })
@@ -86,7 +86,7 @@ const ProductDetail = () => {
             // Use formattedDate in your request
             const productCart = { special_offers, availability, room_size, price_per_night, room_images, description, formattedDate, email, room_count };
 
-            fetch("http://localhost:5000/addToCart", {
+            fetch("https://y-eight-pi-68.vercel.app/addToCart", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json",
@@ -120,7 +120,7 @@ const ProductDetail = () => {
             confirmButtonText: "Book Now"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/updateRoomAvailability/${_id}`, {
+                fetch(`https://y-eight-pi-68.vercel.app/updateRoomAvailability/${_id}`, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',

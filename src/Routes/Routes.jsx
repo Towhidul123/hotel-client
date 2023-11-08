@@ -41,7 +41,7 @@ const router = createBrowserRouter([
         {
           path: '/products/:productId',
           element: <PrivateRoute><ProductDetail></ProductDetail></PrivateRoute>,
-          loader: ({ params }) => fetch(`http://localhost:5000/${params.productId}`)
+          loader: ({ params }) => fetch(`https://y-eight-pi-68.vercel.app/${params.productId}`)
         },
 
         {

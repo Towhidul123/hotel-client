@@ -12,14 +12,14 @@ const Services = () => {
     const [maxPrice, setMaxPrice] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:5000/services')
+        fetch('https://y-eight-pi-68.vercel.app/services')
             .then(response => response.json())
             .then(data => setServices(data));
     }, []);
 
     useEffect(() => {
         services.forEach(service => {
-          fetch(`http://localhost:5000/reviewCount/${service._id}`)
+          fetch(`https://y-eight-pi-68.vercel.app/reviewCount/${service._id}`)
             .then(response => response.json())
             .then(data => {
               setReviewCounts(prevCounts => ({
@@ -85,3 +85,4 @@ const Services = () => {
 };
 
 export default Services;
+
