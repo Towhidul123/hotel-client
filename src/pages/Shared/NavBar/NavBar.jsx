@@ -18,6 +18,12 @@ const NavBar = ({ toggleTheme }) => {
 
 
     {/* <button className="hover:bg-blue-gray-600 px-2 rounded-lg " onClick={toggleTheme}> Dark/light  </button> */}
+    
+    <li className="px-2"><NavLink className={({ isActive, isPending }) =>
+      isPending ? "pending" : isActive ? "text-red-600 underline" : ""
+    } to='/'>Home</NavLink></li>
+
+
 
     <li className="px-2"><NavLink className={({ isActive, isPending }) =>
       isPending ? "pending" : isActive ? "text-red-600 underline" : ""
