@@ -10,6 +10,7 @@ import Error from "../pages/Error/Error";
 import Services from "../pages/Home/Services/Services";
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
+import FAQ from "../pages/FAQ/FAQ";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
         {
           path:'/contactUs',
           element: <ContactUs></ContactUs>
+        },
+        {
+          path:'/faq',
+          element: <FAQ></FAQ>
         }
 
       ]

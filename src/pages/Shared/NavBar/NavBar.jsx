@@ -49,6 +49,10 @@ const NavBar = ({ toggleTheme }) => {
       isPending ? "pending" : isActive ? "text-red-600 underline" : ""
     } to='/contactUs'>Contact Us</NavLink></li>
 
+    <li className="px-2"><NavLink className={({ isActive, isPending }) =>
+      isPending ? "pending" : isActive ? "text-red-600 underline" : ""
+    } to='/faq'>FAQ</NavLink></li>
+
 
 
   </>
