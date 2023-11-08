@@ -64,7 +64,7 @@ const Member = () => {
                                     </svg>
                                 </span>
                                 <p className="block font-sans text-base font-normal leading-relaxed text-inherit antialiased">
-                                Exclusive early access to seasonal promotions and limited-
+                                Exclusive early access to seasonal promotions and limited-time offers.
                                 </p>
                             </li>
                             <li className="flex items-center gap-4">
