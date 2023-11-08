@@ -9,19 +9,19 @@ const Banner = () => {
     return (
 
         <div>
- <div className="relative">
-            <ParallaxBanner
-                layers={[
-                    { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -20 },
-                    { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -10 },
-                ]}
-                className="w-full h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover"
-            >
-                <div className="absolute inset-0 flex  justify-center">
-                    <h1 className="flex justify-center items-center text-center text-5xl  font-thin  text-[white]">Spend Your Vacation with Us </h1>
-                </div>
-            </ParallaxBanner>
-        </div>
+            <div className="relative">
+                <ParallaxBanner
+                    layers={[
+                        { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -20 },
+                        { image: 'https://i.ibb.co/S0xgtMc/nathan-cima-4aq-H2ut-APAs-unsplash-min.jpg', speed: -10 },
+                    ]}
+                    className="w-full h-[300px] md:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] object-cover"
+                >
+                    <div className="absolute inset-0 flex  justify-center">
+                        <h1 className="flex justify-center items-center text-center text-5xl  font-thin  text-[white]">Spend Your Vacation with Us </h1>
+                    </div>
+                </ParallaxBanner>
+            </div>
 
 
             <div>
