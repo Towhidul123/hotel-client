@@ -1,4 +1,3 @@
-# React + Vite
 
 
 # Product Page:
