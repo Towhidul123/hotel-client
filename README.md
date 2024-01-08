@@ -1,4 +1,3 @@
-# React + Vite
 
 # Product Page:
 
@@ -20,4 +19,17 @@
 
 - Security is a top priority in our hotel management system, and it is achieved through robust authentication mechanisms. By implementing JWT (JSON Web Tokens) for user authentication, your system ensures that user sessions are securely managed. This approach not only provides a reliable means of verifying user identities but also allows for efficient authorization of system functionalities. Additionally, the use of cookies enables persistent sessions, allowing users to seamlessly navigate the system while maintaining personalized settings and preferences.
 
+<<<<<<< HEAD
 - client-side live link- https://y-eight-pi-68.vercel.app
+=======
+
+# Technologies used:
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=firebase,mongodb,react,tailwind,express,nodejs&perline=8" />
+  </a>
+</p>
+
+
+- client-side live link- https://ass-11-5faf8.web.app
+>>>>>>> 431d971ad7f1dd6bd570e304c36f12f76bca877f
