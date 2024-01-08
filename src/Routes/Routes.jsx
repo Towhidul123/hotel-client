@@ -13,56 +13,56 @@ import ContactUs from "../pages/ContactUs/ContactUs";
 import FAQ from "../pages/FAQ/FAQ";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Main></Main>,
-      errorElement: <Error></Error>,
-      children:[
-        {
-            path:'/',
-            element: <Home></Home>
-        },
+  {
+    path: "/",
+    element: <Main></Main>,
+    errorElement: <Error></Error>,
+    children: [
+      {
+        path: '/',
+        element: <Home></Home>
+      },
 
-        {
-          path:'/login',
-          element:<Login></Login>
-        },
-        
-        {
-          path:'/room',
-          element: <Services></Services>
+      {
+        path: '/login',
+        element: <Login></Login>
+      },
 
-        },
-        {
-          path:'/register',
-          element:<Register></Register>
-        },
+      {
+        path: '/room',
+        element: <Services></Services>
 
-        {
-          path: '/products/:productId',
-          element: <PrivateRoute><ProductDetail></ProductDetail></PrivateRoute>,
-          loader: ({ params }) => fetch(`https://y-eight-pi-68.vercel.app/${params.productId}`)
-        },
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
+      },
 
-        {
-          path:'/cart',
-          element: <PrivateRoute><Cart></Cart></PrivateRoute>
-        },
-        {
-          path:'/aboutUs',
-          element: <AboutUs></AboutUs>
-        },
-        {
-          path:'/contactUs',
-          element: <ContactUs></ContactUs>
-        },
-        {
-          path:'/faq',
-          element: <FAQ></FAQ>
-        }
+      {
+        path: '/products/:productId',
+        element: <PrivateRoute><ProductDetail></ProductDetail></PrivateRoute>,
+        loader: ({ params }) => fetch(`https://y-eight-pi-68.vercel.app/${params.productId}`)
+      },
 
-      ]
-    },
-  ]);
+      {
+        path: '/cart',
+        element: <PrivateRoute><Cart></Cart></PrivateRoute>
+      },
+      {
+        path: '/aboutUs',
+        element: <AboutUs></AboutUs>
+      },
+      {
+        path: '/contactUs',
+        element: <ContactUs></ContactUs>
+      },
+      {
+        path: '/faq',
+        element: <FAQ></FAQ>
+      }
 
-  export default router;
+    ]
+  },
+]);
+
+export default router;

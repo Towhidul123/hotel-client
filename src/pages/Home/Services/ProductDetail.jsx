@@ -12,7 +12,7 @@ import ReviewComponent from '../../Review/ReviewComponent';
 const ProductDetail = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
-    
+
 
     const [startDate, setStartDate] = useState(null);
 
@@ -22,6 +22,11 @@ const ProductDetail = () => {
     const [reviews, setReviews] = useState([]);
 
     const [reviewData, setReviewData] = useState({ username: '', rating: '', comment: '' });
+
+    const [showReviewModal, setShowReviewModal] = useState(false);
+
+
+
 
     const handleReviewSubmit = (e) => {
         e.preventDefault();
@@ -130,19 +135,28 @@ const ProductDetail = () => {
                         availability: room_count > 1 ? 'available' : 'unavailable',
                     }),
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.ok) {
-                        handleAddToCart();
-                    } else {
-                        Swal.fire({
-                            icon: "error",
-                            title: "Oops...",
-                            text: "No Room Available!",
-                            });    }
-                });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.ok) {
+                            handleAddToCart();
+
+                            setProduct(prevProduct => ({
+                                ...prevProduct,
+                                room_count: prevProduct.room_count - 1
+                            }));
+
+                        } else {
+                            Swal.fire({
+                                icon: "error",
+                                title: "Oops...",
+                                text: "No Room Available!",
+                            });
+                        }
+                    });
             }
         });
+
+        setShowReviewModal(true);
     };
 
 
@@ -152,12 +166,11 @@ const ProductDetail = () => {
         <div >
             <div className='flex justify-center items-center'>
 
-                <DatePicker selected={startDate} placeholderText="Pick a date" onChange={(date) => setStartDate(date)} />
-                <div>
+                <div className='font-bold text-2xl'>
                     No.of rooms left:{room_count}
                 </div>
             </div>
-            <div className='flex justify-center items-center p-10'>
+            <div className='flex justify-center flex-col items-center p-10'>
                 {/* <h1>{product.name}</h1> */}
 
                 <Toaster position="top-right" reverseOrder={false}
@@ -209,55 +222,58 @@ const ProductDetail = () => {
                     </button>
 
                 </div>
+                <DatePicker selected={startDate} placeholderText="Pick a date" className='text-center' onChange={(date) => setStartDate(date)} minDate={new Date()} />
 
 
             </div>
 
             <div className='p-10'>
-            <h3 className='text-center text-3xl'>Reviews</h3>
-            <div className=' flex justify-center items-center'>
-                
-                {reviews.map(review => (
-                    <ReviewComponent
-                        key={review._id}
-                        username={review.username}
-                        rating={review.rating}
-                        comment={review.comment}
-                        timestamp={review.timestamp}
-                    />
-                ))}
+                <h3 className='text-center text-3xl'>Reviews</h3>
+                <div className=' flex justify-center items-center'>
+
+                    {reviews.map(review => (
+                        <ReviewComponent
+                            key={review._id}
+                            username={review.username}
+                            rating={review.rating}
+                            comment={review.comment}
+                            timestamp={review.timestamp}
+                        />
+                    ))}
+                </div>
             </div>
-            </div>        
-            <div className='p-10 flex justify-center items-center flex-col'>
-   
-    <h3 className='text-3xl'>Submit a Review</h3>
-    
-    <form  onSubmit={handleReviewSubmit} className=" flex flex-col items-center ">
-        <input
-            type="text"
-            placeholder="Username"
-            value={reviewData.username}
-            onChange={(e) => setReviewData({ ...reviewData, username: e.target.value })}
-            required
-        />
-        <input
-            type="number"
-            placeholder="Rating"
-            value={reviewData.rating}
-            onChange={(e) => setReviewData({ ...reviewData, rating: e.target.value })}
-            required
-        />
-        <textarea
-            placeholder="Comment"
-            value={reviewData.comment}
-            onChange={(e) => setReviewData({ ...reviewData, comment: e.target.value })}
-            required
-        />
-        <button type="submit">Submit Review</button>
-    </form>
-</div>
 
+            {showReviewModal && (
+                <div className='p-10 flex justify-center items-center flex-col'>
 
+                    <h3 className='text-3xl'>Submit a Review</h3>
+
+                    <form onSubmit={handleReviewSubmit} className=" flex flex-col items-center ">
+                        <input
+                            type="text"
+                            placeholder="Username"
+                            value={reviewData.username}
+                            onChange={(e) => setReviewData({ ...reviewData, username: e.target.value })}
+                            required
+                        />
+                        <input
+                            type="number"
+                            placeholder="Rating"
+                            value={reviewData.rating}
+                            onChange={(e) => setReviewData({ ...reviewData, rating: e.target.value })}
+                            required
+                        />
+                        <textarea
+                            placeholder="Comment"
+                            value={reviewData.comment}
+                            onChange={(e) => setReviewData({ ...reviewData, comment: e.target.value })}
+                            required
+                        />
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </div>
+
+            )}
 
         </div>
     );

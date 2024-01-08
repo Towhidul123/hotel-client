@@ -4,11 +4,13 @@ import Aos from '../../AOS/Aos';
 import Member from '../../Member/Member';
 
 
+
 const Home = () => {
   
     return (
         <div>
-            
+           
+
            <Banner></Banner>
           <Aos></Aos>
           <Member></Member>

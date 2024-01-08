@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react';
 import ServiceCard from './ServiceCard';
 
+
 const Services = () => {
 
     const [reviewCounts, setReviewCounts] = useState({});
@@ -19,18 +20,18 @@ const Services = () => {
 
     useEffect(() => {
         services.forEach(service => {
-          fetch(`https://y-eight-pi-68.vercel.app/reviewCount/${service._id}`)
-            .then(response => response.json())
-            .then(data => {
-              setReviewCounts(prevCounts => ({
-                ...prevCounts,
-                [service._id]: data.count
-              }));
-            })
-            .catch(error => console.error('Error fetching review count:', error));
+            fetch(`https://y-eight-pi-68.vercel.app/reviewCount/${service._id}`)
+                .then(response => response.json())
+                .then(data => {
+                    setReviewCounts(prevCounts => ({
+                        ...prevCounts,
+                        [service._id]: data.count
+                    }));
+                })
+                .catch(error => console.error('Error fetching review count:', error));
         });
-      }, [services]);
-      
+    }, [services]);
+
 
 
 
@@ -57,7 +58,10 @@ const Services = () => {
     };
 
     return (
+
         <div className='text-center mt-4'>
+
+
             <h3 className="text-3xl font-bold">Our Service</h3>
 
             <div className="flex justify-center space-x-4 mt-4">

@@ -1,8 +1,10 @@
 import React from 'react';
 
+
 const AboutUs = () => {
     return (
         <div>
+           
             <div>
                 <h2 className='text-3xl font-bold text-center my-5'>About Us</h2>
                 <p className='text-xl'>Welcome to BOBO Motel, where comfort meets affordability in the heart of hospitality. Our story is one of passion, dedication, and a commitment to providing exceptional experiences for our guests.</p>

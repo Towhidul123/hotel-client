@@ -1,8 +1,15 @@
 import React from 'react';
+import { Helmet } from 'react-helmet';
 
 const FAQ = () => {
     return (
         <div className='space-y-7'>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>FAQ</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
+            
                     <h2 className='text-3xl font-bold text-center'>Some common questions</h2>
             <div tabIndex={0} className="collapse collapse-plus border border-base-300 bg-base-200">
                 <div className="collapse-title text-xl font-medium">
